@@ -22,7 +22,7 @@ Files description:
 If your task is sensitive to high floating point precision in features, you can avoid differences in predictions by XGBoost and CythonXGB which may occur because of not enough precision in XGBoost dumps, please, change XGBoost source according to https://github.com/dmlc/xgboost/issues/1204#issuecomment-219892846 and rebuild it.
 1. `mkdir trees`
 2. Compile Cython module: `python setup.py build_ext --inplace`
-3. To run tests: `python c_xgb_test.py`
+3. Run tests: `python c_xgb_test.py`
 
 # CythonXGB usage in Cython files:
    
