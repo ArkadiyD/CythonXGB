@@ -1,4 +1,4 @@
-# CythonXGB is fast one-sample prediction for XGBoost for usage with Cython
+# CythonXGB
 
 In some cases it is required to make online predictions, particularly, with trained XGBoost model. This project is designed to use trained XGBoost model for online predictions for Cython arrays many times faster than with usual XGBoost Scikit-Learn API.
 
