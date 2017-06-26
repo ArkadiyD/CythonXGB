@@ -1,6 +1,6 @@
 # CythonXGB is fast one-sample prediction for XGBoost for usage with Cython
 
-In some cases it is required to make online predictions, particularly, with fitted XGBoost model for one sample many times. This project is designed to use fitted XGBoost model for online predictions for Cython arrays many times faster than with usual XGBoost Scikit-Learn API.
+In some cases it is required to make online predictions, particularly, with trained XGBoost model. This project is designed to use trained XGBoost model for online predictions for Cython arrays many times faster than with usual XGBoost Scikit-Learn API.
 
 Files description:
 * `c_xgb.cpp` - classes for predictions for XGBoost models written in C++
@@ -26,7 +26,7 @@ If your task is sensitive to high floating point precision in features, you can 
 
 # CythonXGB usage in Cython files:
    
-1. Extern class from CPP file
+1. Extern class from CPP file:
 ```python
 cdef extern from "c_xgb.cpp":
 	cdef cppclass CXgboost:
@@ -54,7 +54,7 @@ cdef CXgboost model_c = CXgboost(depth, n_features, n_estimators, 0, base_score)
 ```python
 preds_c_xgb = model_c.predict(x_cy)
 ```
-`x_cy` should be a cython array with currentt samples features
+`x_cy` should be a float cython array with current sample features
 
 # Tests
 For tests were generated classification and regression datasets with Scikit-Library, they contain 10000 samples with 20 features. 
