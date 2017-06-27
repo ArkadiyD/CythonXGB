@@ -2,6 +2,8 @@
 #include <cstdio>
 #include "json.hpp"
 #include <cstring>
+#include <fstream>
+#include <string>
 #include <climits>
 using namespace std;
 using json::JSON;
@@ -74,7 +76,6 @@ class Tree
         Node node = nodes[root];
         int child;
 
-        //printf ("leaf: %f", node.leaf_value);
         if (node.is_leaf)
             return node.leaf_value;
 
@@ -82,8 +83,7 @@ class Tree
             child = node.child_left;
         else
             child = node.child_right;
-        //printf("%d %d %f %d\n", node.is_leaf, node.split_feature, node.split_value, features[node.split_feature] < node.split_value);
-
+      
         return predict_util(features, child);
     }
 
@@ -111,22 +111,21 @@ class CXgboost
             base_score = -log(1.0 / base_score - 1.0);
         n_trees = n_trees_;
         
-        char string[1000000];
-
         trees = new Tree[n_trees];
         for(int i = 0; i < n_trees; ++i)
             trees[i].init(depth);
         
-        char filename[1000];
+        string filename, string_data;
         for(int i = 0; i < n_trees; ++i)
         {
-            sprintf(filename, "trees/tree_%d.json", i);
-            FILE *f = fopen(filename, "r");
-            size_t fsize = fread(string, sizeof(char), 1000000, f);
-            string[fsize] = 0;
-            fclose(f);
+            filename = "trees/tree_" + to_str(i) + ".json";
 
-            json::JSON obj = JSON::Load(string);
+            ifstream in;
+            in.open(filename);
+            in<<string_data;
+            in.close();
+
+            json::JSON obj = JSON::Load(string_data);
             save_tree(i, obj);
         }
     }
@@ -194,7 +193,6 @@ class CXgboost
     float predict_tree(int tree_num, float *features)
     {
         float tree_prediction = trees[tree_num].predict(features);
-        //printf ("%d %f\n", tree_num, tree_prediction);
         return tree_prediction;
     }
 
@@ -203,9 +201,10 @@ class CXgboost
         float total_prediction = base_score;
 
         for (int i = 0; i < ntree_limit; i++)
-        {   total_prediction += predict_tree(i, features);
-            //printf("%d -- %.3f, ", i+1, total_prediction);
+        {   
+            total_prediction += predict_tree(i, features);
         }
+        
         if (objective == 1)
             total_prediction = logistic(total_prediction);
         
