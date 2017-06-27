@@ -63,7 +63,7 @@ Predicitons were made for each sample 10 times
 *Mean_time_XGBoost* is mean time for prediction for one sample by Scikit-Learn wrapper for XGBoost
 *Mean_time_CythonXGB* is mean time for prediction for one sample by CythonXGB
 
-*Acceleration* is calculated is *Mean_time_XGBoost* / *Mean_time_CythonXGB*
+*Acceleration* is calculated as *Mean_time_XGBoost* / *Mean_time_CythonXGB*
 
 Tests are performed on laptop with Intel® Core™ i5-4210U CPU, Ubuntu 16.04
 
