@@ -1,5 +1,5 @@
 #required extern class constructors and functions
-cdef extern from "c_xgb.cpp":
+cdef extern from "c_xgb/c_xgb.cpp":
     cdef cppclass CXgboost:
         CXgboost()
         CXgboost(int depth, int n_features, int n_trees_ , int objective_, float base_score_)
