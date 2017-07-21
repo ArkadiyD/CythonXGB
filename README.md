@@ -3,9 +3,9 @@
 In some cases it is required to make online predictions, particularly, with trained XGBoost model. This project is designed to use trained XGBoost model for online predictions for Cython arrays many times faster than with usual XGBoost Scikit-Learn API.
 
 Files description:
-* `c_xgb.cpp` - classes for predictions for XGBoost models written in C++
-* `c_xgb.h` - header for `c_xgb.cpp`
-* `json.cpp`, `json.hpp` - JSON parser taken from https://github.com/nbsdx/SimpleJSON/ and modified
+* `c_xgb/c_xgb.cpp` - classes for predictions for XGBoost models written in C++
+* `c_xgb/c_xgb.h` - header for `c_xgb.cpp`
+* `c_xgb/json.cpp`, `c_xgb/json.hpp` - JSON parser taken from https://github.com/nbsdx/SimpleJSON/ and modified
 * `c_xgb_test.pyx` - Cython file with tests for CythonXGB
 * `setup.py` - setup file for tests compilation
 * `c_xgb_test.py` - Python file which runs tests
@@ -28,7 +28,7 @@ If your task is sensitive to high floating point precision in features, you can 
    
 1. Extern class from CPP file:
 ```python
-cdef extern from "c_xgb.cpp":
+cdef extern from "c_xgb/c_xgb.cpp":
 	cdef cppclass CXgboost:
 		CXgboost()
 		CXgboost(int depth, int n_features, int n_trees_ , int objective_, double base_score_)
